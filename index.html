@@ -57,6 +57,11 @@
 
     .msg .name {
         width: 80px;
+        line-height: 30px;
+    }
+
+    .msg .name.timespan {
+        padding-left: 10px;
     }
 
     .msg .inputdiv {
@@ -116,7 +121,18 @@
                 <span>阅读数量</span>
             </div>
             <div class="inputdiv">
-                <input type="number" placeholder="输入你要刷的阅读量">
+                <input type="number" placeholder="输入你要刷的阅读量" id="coun">
+            </div>
+        </div>
+        <div>
+            <div class="name">
+                <span>时间间隔</span>
+            </div>
+            <div class="inputdiv">
+                <input type="number" placeholder="输入你要刷的阅读量" id="interval">
+            </div>
+            <div class="name timespan">
+                <span>s(秒)</span>
             </div>
         </div>
         <div>
@@ -133,12 +149,11 @@
             </div>
         </div>
     </div>
-    <iframe src="http://suishoubian.rongjintou.net/p/412198" frameborder="0" name="iframe" id="iframe"></iframe>
+    <iframe src="./remind.html" frameborder="0" name="iframe" id="iframe"></iframe>
 </body>
 <script>
 var interval = null,
-    times = 0,
-    coun = 0;
+    times = 0;
 
 function read(url) {
     document.getElementById('iframe').src = url;
@@ -152,6 +167,8 @@ function getId(id) {
 
 function star() {
     var url = getId('url').value;
+    var coun = Number(getId('coun').value);
+    var interval = Number(getId('interval').value);
     if (!url) {
         alert('请输入文章地址');
         return;
