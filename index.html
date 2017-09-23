@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+    <title>刷</title>
+    <style>
+    html,
+    body {
+        overflow: hidden;
+        padding: 0;
+        margin: 0;
+        height: 100%;
+    }
+
+    iframe {
+        width: 100%;
+    }
+
+    input {
+        outline: medium;
+        border: none;
+    }
+
+    input[type="number"] {
+        -moz-appearance: textfield;
+        -webkit-appearance: textfield;
+    }
+
+     ::-webkit-input-placeholder {
+        color: #ccc;
+    }
+
+     :-moz-placeholder {
+        color: #ccc;
+    }
+
+     ::-moz-placeholder {
+        color: #ccc;
+    }
+
+     :-ms-input-placeholder {
+        color: #ccc;
+    }
+
+    .msg>div {
+        display: flex;
+        display: -webkit-flex;
+        padding: 0 15px;
+        margin-top: 15px;
+    }
+
+    .msg>div:nth-last-of-type(1) {
+        padding-bottom: 15px;
+    }
+
+    .msg .name {
+        width: 80px;
+    }
+
+    .msg .inputdiv {
+        flex: 1;
+        border: 1px solid #eee;
+        padding: 0 10px;
+        height: 30px;
+    }
+
+    .msg .inputdiv input {
+        width: 100%;
+        border: none;
+        height: 28px;
+    }
+
+    .msg .button {
+        flex: 1;
+        text-align: center;
+        border: 1px solid #eee;
+        padding: 10px;
+    }
+
+    .msg .readnum {
+        border: none;
+    }
+
+    .msg .readnum span:nth-last-of-type(1) {
+        padding-left: 10px;
+    }
+
+    .msg .button#button1 {
+        border-right: none;
+    }
+
+    @media screen and (min-width: 1024px) {
+        .msg {
+            width: 740px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+    </style>
+</head>
+
+<body>
+    <div class="msg" id="msg">
+        <div>
+            <div class="name">
+                <span>文章地址</span>
+            </div>
+            <div class="inputdiv">
+                <input type="text" placeholder="输入文章地址" id="url">
+            </div>
+        </div>
+        <div>
+            <div class="name">
+                <span>阅读数量</span>
+            </div>
+            <div class="inputdiv">
+                <input type="number" placeholder="输入你要刷的阅读量">
+            </div>
+        </div>
+        <div>
+            <div class="button readnum">
+                <span>已阅读</span><span id="num"></span>
+            </div>
+        </div>
+        <div>
+            <div id="button1" class="button">
+                <span>暂停</span>
+            </div>
+            <div id="button2" class="button">
+                <span>开始</span>
+            </div>
+        </div>
+    </div>
+    <iframe src="http://suishoubian.rongjintou.net/p/412198" frameborder="0" name="iframe" id="iframe"></iframe>
+</body>
+<script>
+var interval = null,
+    times = 0,
+    coun = 0;
+
+function read(url) {
+    document.getElementById('iframe').src = url;
+    times++;
+    setReadNum(times);
+}
+
+function getId(id) {
+    return document.getElementById(id);
+}
+
+function star() {
+    var url = getId('url').value;
+    if (!url) {
+        alert('请输入文章地址');
+        return;
+    }
+    if (!/^(http)/.test(url)) {
+        alert('请输入正确的文章地址 (http 开头)');
+        return;
+    }
+    interval = setInterval(function() {
+        read(url);
+        if (coun && coun <= times) {
+            end();
+        }
+    }, 500);
+}
+
+function end() {
+    clearInterval(interval);
+}
+
+function setReadNum(num) {
+    getId('num').innerText = num;
+}
+
+function setIframeHeight() {
+    var t = setInterval(function() {
+        if (getId('iframe')) {
+            var h = document.body.clientHeight;
+            var mh = getId('msg').offsetHeight;
+            getId('iframe').height = h - mh - 10;
+            clearInterval(t);
+        }
+    });
+}
+
+function init() {
+    setReadNum(0);
+    setIframeHeight();
+    getId('button2').onclick = star;
+    getId('button1').onclick = end;
+}
+init();
+</script>
+
+</html>
