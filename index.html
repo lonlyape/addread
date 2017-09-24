@@ -159,7 +159,7 @@ function read(url) {
     document.getElementById('iframe').src = url;
     var ua = navigator.userAgent.toLowerCase();
     console.log(ua);
-    if (/iphone|ipad|ipod/.test(ua)) {
+    if (/iphone|ipad|ipod|edge/.test(ua)) {
         window.frames['iframe'].location.reload();
     } else if (/android/.test(ua)) {
         alert("android");
