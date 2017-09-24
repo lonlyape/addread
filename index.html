@@ -161,6 +161,7 @@ function read(url) {
     console.log(ua);
     if (/iphone|ipad|ipod|edge/.test(ua)) {
         window.frames['iframe'].src = url;
+        alert(document.getElementById('iframe').src);
         window.frames['iframe'].location.reload();
     } else if (/android/.test(ua)) {
         //
