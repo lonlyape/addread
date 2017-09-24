@@ -149,18 +149,18 @@
             </div>
         </div>
     </div>
-    <iframe src="./remind.html" frameborder="0" name="iframe" id="iframe"></iframe>
+    <iframe frameborder="0" name="iframe" id="iframe"></iframe>
 </body>
 <script>
 var intervalObj = null,
-    times = 0;
+    times = 0,
+    iframe = window.frames['iframe'] || document.getElementById('iframe');
 
 function read(url) {
-    document.getElementById('iframe').src = url;
+    iframe.src = url;
     var ua = navigator.userAgent.toLowerCase();
     console.log(ua);
     if (/iphone|ipad|ipod|edge/.test(ua)) {
-        window.frames['iframe'].src = url;
         alert(document.getElementById('iframe').src);
         window.frames['iframe'].location.reload();
     } else if (/android/.test(ua)) {
