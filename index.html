@@ -16,6 +16,7 @@
 
     iframe {
         width: 100%;
+        height: 100%;
     }
 
     input {
@@ -149,27 +150,23 @@
             </div>
         </div>
     </div>
-    <iframe frameborder="0" name="iframe" id="iframe"></iframe>
+    <div id="text"></div>
 </body>
 <script>
 var intervalObj = null,
-    times = 0,
-    iframe = window.frames['iframe'] || document.getElementById('iframe');
+    times = 0;
+
+function ifra(url) {
+    var iframe = document.createElement('iframe');
+    iframe.src = url;
+    iframe.name = 'iframe';
+    iframe.id = 'iframe';
+    getId('text').innerHTML = '';
+    getId('text').appendChild(iframe);
+}
 
 function read(url) {
-    iframe.src = url;
-    var ua = navigator.userAgent.toLowerCase();
-    console.log(ua);
-    if (/iphone|ipad|ipod|edge/.test(ua)) {
-        try {
-            window.frames['iframe'].location.reload();
-        } catch (e) {
-            alert(e);
-        }
-    } else if (/android/.test(ua)) {
-        //
-    }
-
+    ifra(url);
     times++;
     setReadNum(times);
 }
@@ -209,10 +206,11 @@ function setReadNum(num) {
 
 function setIframeHeight() {
     var t = setInterval(function() {
-        if (getId('iframe')) {
+        if (getId('text')) {
             var h = document.body.clientHeight;
             var mh = getId('msg').offsetHeight;
-            getId('iframe').height = h - mh - 10;
+            getId('text').style.height = h - mh + 'px';
+            console.log(getId('text').style.height);
             clearInterval(t);
         }
     });
@@ -221,6 +219,7 @@ function setIframeHeight() {
 function init() {
     setReadNum(0);
     setIframeHeight();
+    ifra('./remind.html');
     getId('button2').onclick = star;
     getId('button1').onclick = end;
 }
