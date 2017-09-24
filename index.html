@@ -163,6 +163,10 @@ function ifra(url) {
     iframe.id = 'iframe';
     getId('text').innerHTML = '';
     getId('text').appendChild(iframe);
+    var ua = navigator.userAgent.toLowerCase();
+    if (/iphone|ipad|ipod|edge/.test(ua)) {
+        iframe.location.reload();
+    }
 }
 
 function read(url) {
