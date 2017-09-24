@@ -161,8 +161,11 @@ function read(url) {
     var ua = navigator.userAgent.toLowerCase();
     console.log(ua);
     if (/iphone|ipad|ipod|edge/.test(ua)) {
-        alert(document.getElementById('iframe').src);
-        window.frames['iframe'].location.reload();
+        try {
+            window.frames['iframe'].location.reload();
+        } catch (e) {
+            alert(e);
+        }
     } else if (/android/.test(ua)) {
         //
     }
