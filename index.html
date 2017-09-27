@@ -159,7 +159,7 @@ var intervalObj = null,
     times = 0;
 
 function ifra(url) {
-    var iframe = document.getId('iframe');
+    var iframe = getId('iframe');
     iframe.src = url;
     var ua = navigator.userAgent.toLowerCase();
     if (/iphone|ipad|ipod|edge/.test(ua)) {
