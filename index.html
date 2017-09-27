@@ -150,19 +150,17 @@
             </div>
         </div>
     </div>
-    <div id="text"></div>
+    <div id="text">
+        <iframe src="remind.html" id="iframe" name='iframe'></iframe>
+    </div>
 </body>
 <script>
 var intervalObj = null,
     times = 0;
 
 function ifra(url) {
-    var iframe = document.createElement('iframe');
+    var iframe = document.getId('iframe');
     iframe.src = url;
-    iframe.name = 'iframe';
-    iframe.id = 'iframe';
-    getId('text').innerHTML = '';
-    getId('text').appendChild(iframe);
     var ua = navigator.userAgent.toLowerCase();
     if (/iphone|ipad|ipod|edge/.test(ua)) {
         window.frames['iframe'].location.reload();
@@ -223,7 +221,6 @@ function setIframeHeight() {
 function init() {
     setReadNum(0);
     setIframeHeight();
-    ifra('./remind.html');
     getId('button2').onclick = star;
     getId('button1').onclick = end;
 }
